@@ -1,0 +1,6 @@
+
+# this tells git not to track these files, and so will not be committed to Github #
+
+node_modules
+.DS_Store
+.env
