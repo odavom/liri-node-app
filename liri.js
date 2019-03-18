@@ -39,16 +39,31 @@ function switchCase(command) {
     }
 };
 
-
 function bandsInTown(parameter) {
 
-axios.get("https://rest.bandsintown.com/artists/" + parameter + "/events?app_id=codingbootcamp").then (
+    axios.get("https://rest.bandsintown.com/artists/" + parameter + "/events?app_id=codingbootcamp").then (
         function(response) {
-            // console.log(response)
-            console.log(response.data[0]);
-            console.log("VENUE: " + response.data[0].venue.name);
-            console.log("LOCATION: " + response.data[0].venue.city + ",",response.data[0].venue.region);
-            console.log("DATE: " + moment(response.data[0].datetime).format("MM/DD/YYYY"));
+            
+            // returns and array object named data
+            // console.log(response);
+            // console.log(response.data)
+            let artist = response.data
+           
+            console.log (artist)
+           
+            for (let i = 0; i < artist.length; i++) {
+                // console.log(artist[i]);nod
+                console.log("\r\n");
+                console.log("VENUE: " + artist[i].venue.name);
+                console.log("LOCATION: " + artist[i].venue.city + ", " + artist[i].venue.region);
+                console.log("DATE: " + moment(artist[i].datetime).format("MM/DD/YYYY"));
+            }
+
+           
+            // console.log("LOCATION: " + response.data[0].venue.city + ",",response.data[0].venue.region);
+            // console.log("DATE: " + moment(response.data[0].datetime).format("MM/DD/YYYY"));
+
+            
            
            
         }
@@ -70,8 +85,27 @@ function spotifySong(parameter) {
 
 
 function omdbMovie(parameter) {
+    axios.get("http://www.omdbapi.com/?t=" + parameter + "&y=&plot=short&apikey=trilogy").then (function(response){
+        // if (parameter === undefined) {
+        //     inputParameter = "Mr. Nobody"
+           
+        //     console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+           
+        //     console.log("It's on Netflix!");  
+        // }
+        console.log(response.data.Title);
+        console.log(response.data.Year);
+        console.log(response.data.imdbRating);
+        // rotten tomatos
+        console.log(response.data.Country);
+        console.log(response.data.Language);
+        console.log(response.data.Plot);
+        console.log(response.data.Actors);
 
-};
+
+    })
+
+}
 
 function getRandom(parameter) {
 
