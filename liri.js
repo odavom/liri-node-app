@@ -52,7 +52,7 @@ function bandsInTown(parameter) {
             console.log (artist)
            
             for (let i = 0; i < artist.length; i++) {
-                // console.log(artist[i]);nod
+                // console.log(artist[i]);
                 console.log("\r\n");
                 console.log("VENUE: " + artist[i].venue.name);
                 console.log("LOCATION: " + artist[i].venue.city + ", " + artist[i].venue.region);
@@ -70,38 +70,84 @@ function bandsInTown(parameter) {
     )
 };
 
-
 function spotifySong(parameter) {
-    
-    spotify.search ({type:'track', query: 'All the Small Things'}, function(err,data) {
-        if (err) {
-            return console.log('Error occurred: ' + err);
-        }
-    console.log(data);
-    });
+    if (!parameter) {
+        parameter = "The Sign";
+    };
+    // console.log(parameter);
+    spotify.search ({type:'track', query: parameter})
+    .then(function(response) {
+        // console.log(typeof response);
+        // console.log(response)
+        console.log(response.tracks.items);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
 
-};
+      
+
+    };
+
+
+
+
+    //     console.log(data)
+    // //    console.log(data.tracks.items[0]);
+    //    let song = data.tracks.items[0];
+        // console.log(song);
+
+        // console.log(song.album.artists[0].preview_url)
+
+        // the below works
+        // console.log(song.album.artists[0].name)
+        // console.log(song.album.name)
+
+
+
+
+
+
+        // console.log(data.tracks);
+    // console.log(data.tracks.items[0].artists[0].name);
+    // console.log(data.tracks);
+    // let song = data.tracks.items;
+    
+    // for (let i = 0; i < song.length; i++) {
+    //     // console.log(song[i].artists)
+    //     // console.log(song[i].name)
+    // }
+   
+   
+    
+
+
+
+
+    // });
+
+
 // spotifySong(parameter)
 
 
 function omdbMovie(parameter) {
     axios.get("http://www.omdbapi.com/?t=" + parameter + "&y=&plot=short&apikey=trilogy").then (function(response){
-        // if (parameter === undefined) {
-        //     inputParameter = "Mr. Nobody"
+        if (parameter === undefined) {
+            inputParameter = "Mr. Nobody"
            
-        //     console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+            console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
            
-        //     console.log("It's on Netflix!");  
-        // }
-        console.log(response.data.Title);
-        console.log(response.data.Year);
-        console.log(response.data.imdbRating);
-        // rotten tomatos
-        console.log(response.data.Country);
-        console.log(response.data.Language);
-        console.log(response.data.Plot);
-        console.log(response.data.Actors);
-
+            console.log("It's on Netflix!");  
+        }
+        // console.log( response.data);
+        console.log("TITLE: " + response.data.Title);
+        console.log("YEAR: " + response.data.Year);
+        console.log("IMDB: " + response.data.imdbRating);
+        console.log("ROTTEN TOMATOES: " + response.data.Ratings[2].Value)
+        console.log("COUNTRY: " + response.data.Country);
+        console.log("LANGUAGE: " + response.data.Language);
+        console.log("PLOT: " + response.data.Plot);
+        console.log("ACTORS: " + response.data.Actors);
 
     })
 
