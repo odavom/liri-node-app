@@ -66,20 +66,47 @@ function bandsInTown(parameter) {
             
            
            
-        }
-    )
-};
+        });
+}
 
 function spotifySong(parameter) {
     if (!parameter) {
-        parameter = "The Sign";
+        parameter = "The Sign Ace of Base";
     };
     // console.log(parameter);
     spotify.search ({type:'track', query: parameter})
     .then(function(response) {
         // console.log(typeof response);
         // console.log(response)
-        console.log(response.tracks.items);
+
+        // items is an array of array objects
+        // console.log(response.tracks.items);
+        // so set to song to iteratre through items array
+        let song = response.tracks.items;
+        // console.log(song[0].name);
+        // for(let i in song) {
+            // console.log(song[i]);
+            // let songSearch = song[i];
+            // console.log(songSearch.name)
+            // console.log(songSearch.artists);
+            // for(let i in songSearch.artists) {
+                // console.log(songSearch.artists[i]);
+                // let artists = songSearch.artists[i];
+                // this prints all 20 artists
+                // console.log(artists.name)
+            // }
+        // }
+
+
+            // the below works
+        console.log(song[0].artists[0].name)
+        console.log(song[0].name);
+        console.log(song[0].preview_url);
+        console.log(song[0].album.name)
+
+
+        // for( i = 0; i < song.length; i++);
+        // console.log(song[i]);
       })
       .catch(function(err) {
         console.log(err);
@@ -87,7 +114,7 @@ function spotifySong(parameter) {
 
       
 
-    };
+    }
 
 
 
@@ -102,10 +129,6 @@ function spotifySong(parameter) {
         // the below works
         // console.log(song.album.artists[0].name)
         // console.log(song.album.name)
-
-
-
-
 
 
         // console.log(data.tracks);
@@ -149,13 +172,25 @@ function omdbMovie(parameter) {
         console.log("PLOT: " + response.data.Plot);
         console.log("ACTORS: " + response.data.Actors);
 
-    })
+    });
 
 }
 
 function getRandom(parameter) {
+    fs.readFile('random.txt', 'utf8', function
+    (err, data) {
 
-};
+        if(err) {
+            return console.log(error);
+        }
+    console.log(data);
+
+   
+    let randomData = data.split(", ")
+    console.log(randomData);
+
+    });
+}
 
 
 switchCase(command);
