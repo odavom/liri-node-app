@@ -41,10 +41,10 @@ function switchCase(command) {
 
 function bandsInTown(parameter) {
 
-    axios.get("https://rest.bandsintown.com/artists/" + parameter + "/events?app_id=codingbootcamp").then (
+    axios.get("https://rest.bandsintown.com/artists/" + parameter + "/events?app_id=codingbootcamp").then(
         function(response) {
-            
-            // returns and array object named data
+           
+            // returns an array object named data
             // console.log(response);
             // console.log(response.data)
             let artist = response.data
@@ -63,8 +63,6 @@ function bandsInTown(parameter) {
             // console.log("LOCATION: " + response.data[0].venue.city + ",",response.data[0].venue.region);
             // console.log("DATE: " + moment(response.data[0].datetime).format("MM/DD/YYYY"));
 
-            
-           
            
         });
 }
@@ -99,10 +97,10 @@ function spotifySong(parameter) {
 
 
             // the below works
-        console.log(song[0].artists[0].name)
-        console.log(song[0].name);
-        console.log(song[0].preview_url);
-        console.log(song[0].album.name)
+        console.log("ARTIST: " + song[0].artists[0].name)
+        console.log("SONG: " + song[0].name);
+        console.log("PREVIEW: " + song[0].preview_url);
+        console.log("ALBUM: " + song[0].album.name)
 
 
         // for( i = 0; i < song.length; i++);
@@ -161,7 +159,7 @@ function omdbMovie(parameter) {
             console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
            
             console.log("It's on Netflix!");  
-        }
+        } else { 
         // console.log( response.data);
         console.log("TITLE: " + response.data.Title);
         console.log("YEAR: " + response.data.Year);
@@ -171,7 +169,7 @@ function omdbMovie(parameter) {
         console.log("LANGUAGE: " + response.data.Language);
         console.log("PLOT: " + response.data.Plot);
         console.log("ACTORS: " + response.data.Actors);
-
+    }
     });
 
 }
@@ -182,12 +180,14 @@ function getRandom(parameter) {
 
         if(err) {
             return console.log(error);
-        }
-    console.log(data);
+        } else {
+            // console.log(data);
 
-   
-    let randomData = data.split(", ")
-    console.log(randomData);
+            let randomData = data.split(",")
+            // console.log(randomData);
+            console.log(randomData[0], randomData[1]);
+        }
+    
 
     });
 }
