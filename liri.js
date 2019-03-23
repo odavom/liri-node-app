@@ -14,7 +14,9 @@ let spotify = new Spotify(keys.spotify);
 
 let command = process.argv[2];
 
-let parameter = process.argv[3];
+let parameter = process.argv.slice(3).join(" ");
+
+var divider = "\n------------------------------------------------------------\n\n";
 
 function switchCase(command) {
     console.log(command);
@@ -53,18 +55,31 @@ function bandsInTown(parameter) {
            
             for (let i = 0; i < artist.length; i++) {
                 // console.log(artist[i]);
-                console.log("\r\n");
-                console.log("VENUE: " + artist[i].venue.name);
-                console.log("LOCATION: " + artist[i].venue.city + ", " + artist[i].venue.region);
-                console.log("DATE: " + moment(artist[i].datetime).format("MM/DD/YYYY"));
+                let search = artist[i];
+                // console.log(search.lineup.join(", "));
+
+                // // console.log("\r\n");
+                let artistData = [
+                    "LINEUP: " + search.lineup.join(", "),
+                    "VENUE: " + search.venue.name,
+                    "LOCATION: " + search.venue.city + ", " + search.venue.region,
+                    "DATE: " + moment(search.datetime).format("MM/DD/YYYY"),
+                ].join("\n\n") 
+
+               
+
+                fs.appendFile("log.txt", artistData + divider, function(err) {
+                    if (err) throw err;
+                    console.log(divider + artistData + divider);
+                });
             }
-
-           
+        
             // console.log("LOCATION: " + response.data[0].venue.city + ",",response.data[0].venue.region);
-            // console.log("DATE: " + moment(response.data[0].datetime).format("MM/DD/YYYY"));
-
-           
-        });
+            // console.log("DATE: " + moment(response.data[0].datetime).format("MM/DD/YYYY")); 
+        })
+        .catch(function (error) {
+            console.log(error);
+          });
 }
 
 function spotifySong(parameter) {
@@ -97,11 +112,17 @@ function spotifySong(parameter) {
 
 
             // the below works
-        console.log("ARTIST: " + song[0].artists[0].name)
-        console.log("SONG: " + song[0].name);
-        console.log("PREVIEW: " + song[0].preview_url);
-        console.log("ALBUM: " + song[0].album.name)
+            let songData = [
+                "ARTIST: " + song[0].artists[0].name,
+                "SONG: " + song[0].name,
+                "PREVIEW: " + song[0].preview_url,
+                "ALBUM: " + song[0].album.name,
+            ].join("\n\n");
 
+            fs.appendFile("log.txt", songData + divider, function(err) {
+                if (err) throw err;
+                console.log(divider + songData + divider);
+            });
 
         // for( i = 0; i < song.length; i++);
         // console.log(song[i]);
@@ -153,8 +174,8 @@ function spotifySong(parameter) {
 
 function omdbMovie(parameter) {
     axios.get("http://www.omdbapi.com/?t=" + parameter + "&y=&plot=short&apikey=trilogy").then (function(response){
-        if (parameter === undefined) {
-            inputParameter = "Mr. Nobody"
+        if (!parameter) {
+            parameter = "Mr. Nobody"
            
             console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
            
@@ -165,17 +186,26 @@ function omdbMovie(parameter) {
         // console.log(object)
         // object = JSON.stringify(object);
         // console.log(object)
-       
-        console.log("TITLE: " + response.data.Title);
-        console.log("YEAR: " + response.data.Year);
-        console.log("IMDB: " + response.data.imdbRating);
-        console.log("ROTTEN TOMATOES: " + response.data.Ratings[2].Value)
-        console.log("COUNTRY: " + response.data.Country);
-        console.log("LANGUAGE: " + response.data.Language);
-        console.log("PLOT: " + response.data.Plot);
-        console.log("ACTORS: " + response.data.Actors);
+       let movieData = [
+            "TITLE: " + response.data.Title,
+            "YEAR: " + response.data.Year,
+            "IMDB: " + response.data.imdbRating,
+            "ROTTEN TOMATOES: " + response.data.Ratings[2].Value,
+            "COUNTRY: " + response.data.Country,
+            "LANGUAGE: " + response.data.Language,
+            "PLOT: " + response.data.Plot,
+            "ACTORS: " + response.data.Actors].join("\n\n");
+        
+            fs.appendFile("log.txt", movieData + divider, function(err) {
+            if (err) throw err;
+            console.log(divider + movieData + divider);
+            });
+        
     }
-    });
+    })
+    .catch(function (error) {
+        console.log(error);
+      });
 
 }
 
