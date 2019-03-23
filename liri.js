@@ -49,7 +49,7 @@ function bandsInTown(parameter) {
             // console.log(response.data)
             let artist = response.data
            
-            console.log (artist)
+            // console.log (artist)
            
             for (let i = 0; i < artist.length; i++) {
                 // console.log(artist[i]);
@@ -160,7 +160,12 @@ function omdbMovie(parameter) {
            
             console.log("It's on Netflix!");  
         } else { 
-        // console.log( response.data);
+        // console.log(response.data);
+        // let object = response.data;
+        // console.log(object)
+        // object = JSON.stringify(object);
+        // console.log(object)
+       
         console.log("TITLE: " + response.data.Title);
         console.log("YEAR: " + response.data.Year);
         console.log("IMDB: " + response.data.imdbRating);
@@ -183,9 +188,30 @@ function getRandom(parameter) {
         } else {
             // console.log(data);
 
-            let randomData = data.split(",")
+            let dataArr = data.split(",")
             // console.log(randomData);
-            console.log(randomData[0], randomData[1]);
+            console.log(dataArr[0], dataArr[1]);
+
+            switch(dataArr[0]) {
+
+                case 'concert-this':
+                    bandsInTown(dataArr[1]);
+                    break;
+        
+                case 'spotify-this-song':
+                    spotifySong(dataArr[1]);
+                    break;
+        
+                case 'movie-this':
+                    omdbMovie(dataArr[1]);
+                    break;
+        
+                case 'do-what-it-says':
+                    getRandom(dataArr[1]);
+                    break;
+        
+            }
+
         }
     
 
