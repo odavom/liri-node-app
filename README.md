@@ -11,7 +11,7 @@ LIRI(Language Interpretation & Recognition Interface)is a command line node app 
 
 1. Bands in Town - search example
 * `node liri concert-this "artist/band"`
-    returns
+    * returns
      * Artist(s)
 
      * The song's name
