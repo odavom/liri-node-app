@@ -8,9 +8,12 @@ let fs = require('fs');
 let axios = require('axios');
 let moment = require('moment');
 let Spotify = require('node-spotify-api');
-let spotify = new Spotify(keys.spotify);
 
 let keys = require('./keys.js');
+
+let spotify = new Spotify(keys.spotify);
+
+
 
 let command = process.argv[2];
 
