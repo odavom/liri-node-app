@@ -3,14 +3,14 @@ require('dotenv').config();
 
 // GLOBAL VARIABLES
 
-let keys = require('./keys.js');
-
 let fs = require('fs');
-let axios = require('axios')
-let moment = require('moment')
 
+let axios = require('axios');
+let moment = require('moment');
 let Spotify = require('node-spotify-api');
 let spotify = new Spotify(keys.spotify);
+
+let keys = require('./keys.js');
 
 let command = process.argv[2];
 
@@ -43,7 +43,8 @@ function switchCase(command) {
 
 function bandsInTown(parameter) {
 
-    axios.get("https://rest.bandsintown.com/artists/" + parameter + "/events?app_id=codingbootcamp").then(
+    axios.get("https://rest.bandsintown.com/artists/" + parameter + "/events?app_id=codingbootcamp")
+    .then(
         function(response) {
            
             // returns an array object named data
@@ -134,10 +135,6 @@ function spotifySong(parameter) {
       
 
     }
-
-
-
-
     //     console.log(data)
     // //    console.log(data.tracks.items[0]);
     //    let song = data.tracks.items[0];
@@ -159,12 +156,6 @@ function spotifySong(parameter) {
     //     // console.log(song[i].artists)
     //     // console.log(song[i].name)
     // }
-   
-   
-    
-
-
-
 
     // });
 
@@ -173,7 +164,8 @@ function spotifySong(parameter) {
 
 
 function omdbMovie(parameter) {
-    axios.get("http://www.omdbapi.com/?t=" + parameter + "&y=&plot=short&apikey=trilogy").then (function(response){
+    axios.get("http://www.omdbapi.com/?t=" + parameter + "&y=&plot=short&apikey=trilogy")
+    .then (function(response){
         if (!parameter) {
             parameter = "Mr. Nobody"
            
